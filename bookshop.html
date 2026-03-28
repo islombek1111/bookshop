@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>The Book Corner</title>
+<title>i's books</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{--cream:#f5f0e8;--warm:#faf7f2;--ink:#1a1208;--brown:#5c3d1e;--amber:#c8853a;--amber-l:#e8a85a;--rust:#a0522d;--sage:#7a8c6e;--muted:#8a7a68;--border:#d4c5a9;--shadow:rgba(92,61,30,.13);--red:#c0392b;--green:#27ae60;}
@@ -195,6 +195,9 @@ footer p{font-size:.8rem;}
 .toast.error{background:var(--red);}
 .empty{text-align:center;padding:50px 20px;color:var(--muted);}
 .empty-icon{font-size:2.8rem;margin-bottom:14px;}
+.curr-switcher{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border-radius:20px;padding:4px;border:1px solid rgba(255,255,255,.15);}
+.curr-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border:none;border-radius:16px;background:transparent;color:rgba(245,240,232,.6);cursor:pointer;transition:all .2s;}
+.curr-btn.active{background:var(--amber);color:var(--ink);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes popIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
 @media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:44px;}.hero-visual{display:none;}.cat-grid{grid-template-columns:1fr 1fr;}.contact-grid{grid-template-columns:1fr;}nav{display:none;}.ap-grid{grid-template-columns:1fr;}.settings-grid{grid-template-columns:1fr;}}
@@ -204,11 +207,17 @@ footer p{font-size:.8rem;}
 <body>
 
 <header>
-  <div class="logo">📚 The Book Corner</div>
+  <div class="logo">📚 i's books</div>
   <nav>
     <a href="#books">Browse</a>
     <a href="#categories">Categories</a>
     <a href="#contact">Contact</a>
+    <div class="curr-switcher">
+      <button class="curr-btn active" onclick="setCurrency('UZS',this)">UZS</button>
+      <button class="curr-btn" onclick="setCurrency('USD',this)">USD</button>
+      <button class="curr-btn" onclick="setCurrency('EUR',this)">EUR</button>
+      <button class="curr-btn" onclick="setCurrency('HUF',this)">HUF</button>
+    </div>
     <a href="#contact" class="nav-cta">Buy a Book</a>
   </nav>
 </header>
@@ -279,7 +288,7 @@ footer p{font-size:.8rem;}
     <div>
       <div class="c-item"><div class="c-icon">✈️</div><div class="c-details"><h3>Telegram</h3><p>Fastest way to reach me. Send the book title and I'll reply quickly.</p><a id="tgLink" href="#" class="c-link" target="_blank">Open Telegram →</a></div></div>
       <div class="c-item"><div class="c-icon">✉️</div><div class="c-details"><h3>Email</h3><p>Prefer email? Write me anytime, I check daily.</p><a id="emailLink" href="#" class="c-link">Send Email →</a></div></div>
-      <div class="c-item"><div class="c-icon">📍</div><div class="c-details"><h3>Location</h3><p>Currently <strong>Budapest, Hungary</strong> — moving to <strong>Uzbekistan</strong> soon. Meetup &amp; shipping available.</p></div></div>
+      <div class="c-item"><div class="c-icon">📍</div><div class="c-details"><h3>Location</h3><p>Currently based in <strong>Budapest, Hungary</strong>. Location may change — meetup &amp; shipping options will always be available.</p></div></div>
     </div>
     <div class="c-form">
       <h3>Send an enquiry</h3>
@@ -294,9 +303,9 @@ footer p{font-size:.8rem;}
 </section>
 
 <footer>
-  <div><div class="f-logo">📚 The Book Corner</div><p style="margin-top:5px">A personal bookshop · Budapest &amp; Uzbekistan</p></div>
+  <div><div class="f-logo">📚 i's books</div><p style="margin-top:5px">A personal bookshop · Budapest &amp; beyond</p></div>
   <div class="f-links"><a href="#books">Books</a><a href="#categories">Categories</a><a href="#contact">Contact</a></div>
-  <p>© 2026 The Book Corner</p>
+  <p>© 2026 i's books</p>
 </footer>
 
 <!-- BUY MODAL -->
@@ -357,7 +366,7 @@ footer p{font-size:.8rem;}
             </select>
           </div>
           <div class="af"><label>Condition note (optional)</label><input type="text" id="aCondNote" placeholder="e.g. Minor highlighting on 3 pages"/></div>
-          <div class="af"><label>Price (UZS) *</label><input type="number" id="aPrice" placeholder="e.g. 45000" min="0"/></div>
+          <div class="af"><label>Price in UZS *</label><input type="number" id="aPrice" placeholder="e.g. 45000" min="0"/></div>
           <div class="af"><label>Discount % — leave 0 for none</label><input type="number" id="aDiscount" placeholder="e.g. 20" min="0" max="90"/></div>
           <div class="af"><label>Spine colour (placeholder if no photo)</label><input type="color" id="aColor" value="#5c3d1e"/></div>
           <div class="af af-full">
@@ -415,6 +424,27 @@ const SK = {books:'bc_books', settings:'bc_settings', pass:'bc_pass'};
 const DEF_PASS = 'admin123';
 const GENRES = {fiction:'Fiction',nonfiction:'Non-Fiction',academic:'Academic',other:'Other'};
 
+// ── CURRENCY ──
+// Prices in the database are always stored in UZS.
+// These rates are approximate — update them in the Settings tab anytime.
+const RATES = { UZS:1, USD:0.000079, EUR:0.000073, HUF:0.029 };
+const SYMBOLS = { UZS:'UZS', USD:'$', EUR:'€', HUF:'Ft' };
+let activeCurrency = 'UZS';
+
+function convertPrice(uzs){
+  const val = Math.round(parseInt(uzs) * RATES[activeCurrency]);
+  return val.toLocaleString();
+}
+function currSymbol(){ return SYMBOLS[activeCurrency]; }
+
+function setCurrency(c, btn){
+  activeCurrency = c;
+  document.querySelectorAll('.curr-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('statCurr').textContent = c;
+  renderBooks();
+}
+
 function loadBooks(){try{return JSON.parse(localStorage.getItem(SK.books)||'[]');}catch(e){return[];}}
 function saveBooks(b){localStorage.setItem(SK.books,JSON.stringify(b));}
 function loadSettings(){try{return JSON.parse(localStorage.getItem(SK.settings)||'{}');}catch(e){return {};}}
@@ -465,14 +495,17 @@ function renderBooks(){
   grid.innerHTML=list.map((b,i)=>{
     const disc=parseInt(b.discount)||0;
     const orig=parseInt(b.price)||0;
-    const final=disc>0?Math.round(orig*(1-disc/100)):orig;
+    const finalUZS=disc>0?Math.round(orig*(1-disc/100)):orig;
+    const origDisp=convertPrice(orig);
+    const finalDisp=convertPrice(finalUZS);
+    const sym=currSymbol();
     const photoHtml=b.photos&&b.photos.length
       ?`<img src="${b.photos[0]}" alt="${b.title}"/>`
       :`<div class="no-photo-book" style="background:${b.color||'#5c3d1e'}">${b.title}</div>`;
     const ribbon=disc>0?`<div class="disc-ribbon">-${disc}% OFF</div>`:'';
     const priceBlock=disc>0
-      ?`<div class="orig-price">${orig.toLocaleString()} UZS</div><div class="book-price">${final.toLocaleString()} <span>UZS</span></div>`
-      :`<div class="book-price">${orig.toLocaleString()} <span>UZS</span></div>`;
+      ?`<div class="orig-price">${origDisp} ${sym}</div><div class="book-price">${finalDisp} <span>${sym}</span></div>`
+      :`<div class="book-price">${finalDisp} <span>${sym}</span></div>`;
     const action=b.sold
       ?`<span class="sold-lbl">✓ Sold</span>`
       :`<button class="buy-btn" onclick='openBuyModal(${JSON.stringify(b).replace(/'/g,"&#39;")})'>I want this</button>`;
@@ -496,10 +529,13 @@ function openBuyModal(b){
   const em=s.email||'your@email.com';
   const disc=parseInt(b.discount)||0;
   const orig=parseInt(b.price)||0;
-  const final=disc>0?Math.round(orig*(1-disc/100)):orig;
+  const finalUZS=disc>0?Math.round(orig*(1-disc/100)):orig;
+  const finalDisp=convertPrice(finalUZS);
+  const sym=currSymbol();
   document.getElementById('mTitle').textContent=b.title;
-  document.getElementById('mMeta').textContent=`${b.author} · ${GENRES[b.genre]||b.genre} · ${final.toLocaleString()} UZS`;
-  const msg=encodeURIComponent(`Hi! I'm interested in buying "${b.title}" by ${b.author} (${final.toLocaleString()} UZS). Is it still available?`);
+  document.getElementById('mMeta').textContent=`${b.author} · ${GENRES[b.genre]||b.genre} · ${finalDisp} ${sym}`;
+  // always send UZS price in message for clarity
+  const msg=encodeURIComponent(`Hi! I'm interested in buying "${b.title}" by ${b.author} (${finalUZS.toLocaleString()} UZS). Is it still available?`);
   document.getElementById('mTg').href=`https://t.me/${tg}?text=${msg}`;
   document.getElementById('mEmail').href=`mailto:${em}?subject=${encodeURIComponent('Book inquiry: '+b.title)}&body=${msg}`;
   document.getElementById('buyOverlay').classList.add('open');
