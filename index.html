@@ -342,7 +342,9 @@ footer p{font-size:.75rem;}
           <label>Photo</label>
           <div class="photo-upload-box" onclick="document.getElementById('aFile').click()">
             <div>📸 Click to upload photo</div>
+            
             <div id="compressNote" style="font-size: 0.7rem; color: var(--gold); margin-top: 5px;"></div>
+            
             <input type="file" id="aFile" hidden accept="image/*" onchange="handlePhoto(this)">
           </div>
           <div id="photoPreview" class="photo-preview-grid"></div>
@@ -629,6 +631,8 @@ function clearForm(){
   removePhoto();
   document.getElementById('editorLabel').textContent='Add New Book';
   document.getElementById('cancelEdit').style.display='none';
+  
+  // FIXED LINE BELOW
   document.getElementById('compressNote').textContent = '';
 }
 function renderAdminList(){
