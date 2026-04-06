@@ -1457,6 +1457,12 @@ let activeFormat = '';
 
 // This is the function that actually gets the data
 async function initStorefront() {
+  const tg = ls('bc_tg') || 'isroilcv';
+  const em = ls('bc_email') || 'islombek.personal@gmail.com';
+  document.getElementById('tgLink').href = `https://t.me/${tg}`;
+  document.getElementById('tgLink').textContent = `@${tg} →`;
+  document.getElementById('emailLink').href = `mailto:${em}`;
+  document.getElementById('emailLink').textContent = em + ' →';
   const grid = document.getElementById('bookGrid');
   if(grid) grid.innerHTML = '<div class="loading-grid"><div class="loading-label">Loading Library...</div></div>';
 
