@@ -1472,6 +1472,7 @@ async function initStorefront() {
       renderBooks();
       syncStatsBanner();
       syncIllusCount();
+      updateCount();
     }
   } catch (err) {
     console.error("Connection Error:", err);
