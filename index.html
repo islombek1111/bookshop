@@ -841,6 +841,8 @@ let currentPhoto   = null;
 
 const ls = (k,v) => v===undefined ? localStorage.getItem(k)||'' : localStorage.setItem(k,String(v));
 const getPass = () => { const p=localStorage.getItem('bc_pass'); return (p&&p.length>=4)?p:DEF_PASS; };
+// Clear any stale saved password so DEF_PASS takes effect on all devices
+if(localStorage.getItem('bc_pass') && localStorage.getItem('bc_pass')!==DEF_PASS){ localStorage.removeItem('bc_pass'); }
 const getSheetUrl = () => {
   const savedUrl = ls('bc_sheetUrl');
   // This uses your saved URL if it exists, otherwise it uses the hardcoded one
@@ -1446,8 +1448,6 @@ function showToast(msg,type=''){
 }
 
 // INIT
-initStorefront();
-
 let activeFormat = '';
 
 function filterByFormat(fmt){
@@ -1487,6 +1487,7 @@ const _origUpdateCount = updateCount;
 updateCount = function(){ _origUpdateCount(); syncIllusCount(); syncStatsBanner(); };
 syncIllusCount();
 syncStatsBanner();
+initStorefront();
 </script>
 </body>
 </html>
