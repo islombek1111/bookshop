@@ -166,7 +166,8 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,2.5vw,2.2rem);ma
 .search-input{width:100%;padding:11px 16px 11px 42px;border:1.5px solid var(--border);border-radius:30px;background:var(--white);color:var(--ink);font-family:'Lora',serif;font-size:.92rem;outline:none;transition:border-color .25s,box-shadow .25s;}
 .search-input:focus{border-color:var(--terra);box-shadow:0 0 0 3px rgba(192,98,74,.1);}
 .search-input::placeholder{color:var(--silver);}
-.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--silver);pointer-events:none;font-size:1rem;}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none;display:flex;align-items:center;}
+.search-icon svg{width:18px;height:18px;stroke:var(--night-d);stroke-width:2.5;stroke-linecap:round;fill:none;opacity:.55;}
 .search-clear{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--silver);cursor:pointer;font-size:1rem;display:none;line-height:1;}
 .search-clear.visible{display:block;}
 
@@ -207,10 +208,11 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,2.5vw,2.2rem);ma
 .detail-item .di-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
 .detail-item .di-val{font-size:.84rem;color:var(--night-d);font-weight:500;}
 .book-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:5px;}
-.details-btn{width:auto;height:auto;padding:7px 8px;background:transparent;border:1.5px solid var(--terra);border-radius:4px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.details-btn{width:auto;height:32px;padding:0 8px;background:transparent;border:1.5px solid var(--terra);border-radius:4px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;box-sizing:border-box;}
 .details-btn:hover{background:var(--terra);}
 .details-btn:hover svg{stroke:#fff;}
-.details-btn svg{width:15px;height:15px;stroke:var(--terra);stroke-width:2;stroke-linecap:round;fill:none;transition:stroke .2s;}
+.details-btn svg{width:14px;height:14px;stroke:var(--terra);stroke-width:2.2;stroke-linecap:round;fill:none;transition:stroke .2s;display:block;}
+.buy-btn{font-family:'DM Mono',monospace;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:0 12px;height:32px;background:var(--terra);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;box-sizing:border-box;}
 .orig-price{font-size:.67rem;color:var(--silver);text-decoration:line-through;font-family:'DM Mono',monospace;line-height:1;}
 .book-price{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--night-d);font-weight:700;line-height:1.1;}
 .book-price span{font-size:.63rem;font-weight:400;color:var(--muted);font-family:'DM Mono',monospace;}
@@ -299,19 +301,23 @@ footer p{font-size:.75rem;}
 .details-desc.expanded{max-height:600px;}
 .desc-toggle{background:none;border:none;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);cursor:pointer;padding:4px 0;margin-top:2px;display:block;}
 .desc-toggle:hover{text-decoration:underline;}
-.details-contact{display:flex;flex-direction:column;gap:8px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
-.details-contact-btn{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:8px;text-decoration:none;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;transition:all .22s;}
-.details-contact-tg{background:var(--terra);color:#fff;}
-.details-contact-tg:hover{background:var(--terra-l);}
-.details-contact-email{background:var(--warm1);color:var(--night-d);border:1.5px solid var(--border);}
-.details-contact-email:hover{border-color:var(--terra);background:var(--warm2);}
+.details-contact{display:flex;flex-direction:row;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);justify-content:center;}
+.details-contact-btn{width:48px;height:48px;border-radius:10px;text-decoration:none;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.details-contact-btn svg{width:24px;height:24px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.details-contact-btn:hover{transform:translateY(-3px);box-shadow:0 6px 18px var(--shadow);}
+.details-contact-btn:hover svg{transform:scale(1.2) rotate(-8deg);}
+.details-contact-tg{background:#29a8e0;}
+.details-contact-tg:hover{background:#1a98d0;}
+.details-contact-email{background:var(--warm2);border:1.5px solid var(--border);}
+.details-contact-email:hover{border-color:var(--terra);}
+@media(max-width:600px){
+  .details-contact{justify-content:center;}
+}
 @media(max-width:600px){
   .details-modal{grid-template-columns:1fr;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
   .details-left{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;gap:16px;align-items:flex-start;padding:16px;}
   .details-photo-wrap{width:100px;flex-shrink:0;aspect-ratio:3/4;}
   .details-right{max-height:none;overflow-y:visible;}
-  .details-contact{flex-direction:row;}
-  .details-contact-btn{flex:1;justify-content:center;}
 }
 
 /* ── BUY MODAL ── */
@@ -325,7 +331,12 @@ body.modal-open{overflow:hidden;}
 .m-opts{display:flex;flex-direction:column;gap:10px;}
 .m-opt{display:flex;align-items:center;gap:13px;padding:13px 15px;border:1.5px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all .22s;}
 .m-opt:hover{border-color:var(--terra);background:rgba(192,98,74,.05);transform:translateX(4px);}
-.m-opt-icon{font-size:1.3rem;}
+.m-opt-icon{font-size:1.3rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.m-opt-icon svg{width:24px;height:24px;}
+.m-opt-icon svg,.c-icon svg{transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.m-opt:hover .m-opt-icon svg{transform:scale(1.25) rotate(-8deg);}
+.c-item:hover .c-icon svg{transform:scale(1.2) rotate(-6deg);}
+.c-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;display:flex;align-items:center;}
 .m-opt-text strong{display:block;font-family:'Playfair Display',serif;font-size:.92rem;color:var(--night-d);}
 .m-opt-text span{font-size:.75rem;color:var(--muted);font-weight:300;}
 
@@ -576,8 +587,10 @@ body.modal-open{overflow:hidden;}
   <h2>Available Books</h2>
   <p class="sec-sub">All books are ready to go — contact me to arrange pickup.</p>
 <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input class="search-input" id="searchInput" type="text" placeholder="Search by title or author…" oninput="onSearch(this.value)"/>
+    <span class="search-icon">
+      <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+    </span>
+    <input class="search-input" id="searchInput" type="text" placeholder="" oninput="onSearch(this.value)"/>
     <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
   </div>
   <div class="filter-bar">
@@ -656,9 +669,8 @@ body.modal-open{overflow:hidden;}
   <p class="sec-sub">Found something you like? Reach out — pickup only at Blaha Lujza tér, Budapest.</p>
   <div class="contact-grid">
     <div>
-      <div class="c-item"><div class="c-icon">✈️</div><div class="c-details"><h3>Telegram</h3><p>Fastest way to reach me. Send the book title and I'll reply quickly.</p><a id="tgLink" href="#" class="c-link" target="_blank">Open Telegram →</a></div></div>
-      <div class="c-item"><div class="c-icon">✉️</div><div class="c-details"><h3>Email</h3><p>Prefer email? Write me anytime.</p><a id="emailLink" href="#" class="c-link">Send Email →</a></div></div>
-      <div class="c-item">
+     <div class="c-item"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#29a8e0"/><path d="M17.5 7L10 13.5 7 11l-2.5 1.5 5 4 9-9.5z" fill="#fff" opacity=".3"/><path d="M5.5 12.5l4.5 3.5 8-9" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div><div class="c-details"><h3>Telegram</h3><p>Fastest way to reach me. Send the book title and I'll reply quickly.</p><a id="tgLink" href="#" class="c-link" target="_blank">Open Telegram →</a></div></div>
+      <div class="c-item"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" fill="var(--warm2)" stroke="var(--border)" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></div><div class="c-details"><h3>Email</h3><p>Prefer email? Write me anytime.</p><a id="emailLink" href="#" class="c-link">Send Email →</a></div></div>
         <div class="c-icon">📍</div>
         <div class="c-details">
           <h3>Pickup Only</h3>
@@ -723,13 +735,13 @@ body.modal-open{overflow:hidden;}
         <p id="detailsDesc" class="details-desc collapsed"></p>
         <button id="descToggle" class="desc-toggle" onclick="toggleDesc()">Show more ▾</button>
       </div>
-      <!-- contact buttons pinned at bottom -->
+<!-- contact buttons: icon only, centered -->
       <div class="details-contact">
-        <a href="#" id="detailsTg" class="details-contact-btn details-contact-tg" target="_blank">
-          <span>✈️</span><span>Message on Telegram</span>
+        <a href="#" id="detailsTg" class="details-contact-btn details-contact-tg" target="_blank" title="Message on Telegram">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21.5 4.5L3 11l7 2.5L18 8l-7 7 1 5.5 3-3.5 4 3 3-16z" fill="#fff" opacity=".9"/></svg>
         </a>
-        <a href="#" id="detailsEmail" class="details-contact-btn details-contact-email">
-          <span>✉️</span><span>Send an Email</span>
+        <a href="#" id="detailsEmail" class="details-contact-btn details-contact-email" title="Send an Email">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="var(--terra)" stroke-width="1.8"/><path d="M2 7l10 7 10-7" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
         </a>
       </div>
     </div>
@@ -743,12 +755,12 @@ body.modal-open{overflow:hidden;}
     <h3 id="mTitle"></h3>
     <p class="meta" id="mMeta"></p>
     <div class="m-opts">
-      <a href="#" id="mTg" class="m-opt" target="_blank">
-        <span class="m-opt-icon">✈️</span>
+    <a href="#" id="mTg" class="m-opt" target="_blank">
+        <span class="m-opt-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#29a8e0"/><path d="M5.5 12.5l4.5 3.5 8-9" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
         <span class="m-opt-text"><strong>Message on Telegram</strong><span>Fastest — usually reply within hours</span></span>
       </a>
       <a href="#" id="mEmail" class="m-opt">
-        <span class="m-opt-icon">✉️</span>
+        <span class="m-opt-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="var(--terra)" stroke-width="1.8"/><path d="M2 7l10 7 10-7" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span>
         <span class="m-opt-text"><strong>Send an Email</strong><span>I'll confirm pickup within 24h</span></span>
       </a>
     </div>
@@ -1124,6 +1136,28 @@ function updateNavBtns(){
   r.disabled = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 10;
 }
 
+// ── SEARCH TYPING ANIMATION ──
+(function(){
+  const phrases = ['Search by title…', 'Search by author…', 'Try "fiction"…', 'Try a book name…'];
+  let pi=0, ci=0, deleting=false;
+  const inp = document.getElementById('searchInput');
+  if(!inp) return;
+  function type(){
+    if(document.activeElement===inp) { setTimeout(type,400); return; }
+    const phrase = phrases[pi];
+    if(!deleting){
+      inp.placeholder = phrase.slice(0,++ci);
+      if(ci===phrase.length){ deleting=true; setTimeout(type,1800); return; }
+      setTimeout(type,70);
+    } else {
+      inp.placeholder = phrase.slice(0,--ci);
+      if(ci===0){ deleting=false; pi=(pi+1)%phrases.length; setTimeout(type,400); return; }
+      setTimeout(type,35);
+    }
+  }
+  setTimeout(type,800);
+})();
+  
 let searchQuery = '';
 
 function onSearch(val){
