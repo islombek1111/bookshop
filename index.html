@@ -252,19 +252,34 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,2.5vw,2.2rem);ma
 
 /* ── CONTACT ── */
 #contact{background:var(--white);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
-.c-item{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--warm1);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;transition:all .2s;}
-.c-item:hover{box-shadow:0 6px 18px var(--shadow);transform:translateY(-2px);}
-.c-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;}
-.c-details h3{font-family:'Playfair Display',serif;font-size:.97rem;margin-bottom:2px;color:var(--night-d);}
-.c-details p{font-size:.82rem;color:var(--muted);margin-bottom:7px;font-weight:300;}
-.c-link{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.08em;color:var(--terra);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:border-color .2s;}
-.c-link:hover{border-color:var(--terra);}
-.map-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-top:8px;}
-.map-wrap iframe{display:block;width:100%;height:210px;}
+
+/* quick contact cards */
+.contact-quick{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.cq-card{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:12px;text-decoration:none;border:1.5px solid var(--border);background:var(--warm1);transition:all .25s;color:var(--ink);}
+.cq-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow);border-color:var(--terra);}
+.cq-icon{width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.cq-icon svg{width:36px;height:36px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.cq-card:hover .cq-icon svg{transform:scale(1.15) rotate(-6deg);}
+.cq-text{flex:1;}
+.cq-text strong{display:block;font-family:'Playfair Display',serif;font-size:.97rem;color:var(--night-d);margin-bottom:2px;}
+.cq-text span{font-size:.78rem;color:var(--muted);font-weight:300;}
+.cq-arrow{font-size:1rem;color:var(--terra);opacity:0;transform:translateX(-4px);transition:all .22s;}
+.cq-card:hover .cq-arrow{opacity:1;transform:translateX(0);}
+
+/* main grid: form + map */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
 .c-form{background:var(--warm1);border:1px solid var(--border);border-radius:12px;padding:26px;}
 .c-form h3{font-family:'Playfair Display',serif;font-size:1.12rem;margin-bottom:5px;color:var(--night-d);}
 .c-form p{font-size:.82rem;color:var(--muted);margin-bottom:18px;font-weight:300;}
+.c-map-block{display:flex;flex-direction:column;gap:10px;}
+.c-map-label{display:flex;align-items:flex-start;gap:8px;padding:12px 16px;background:var(--warm1);border:1px solid var(--border);border-radius:10px;font-size:.84rem;color:var(--muted);}
+.c-map-label strong{color:var(--night-d);}
+.map-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.map-wrap iframe{display:block;width:100%;height:280px;}
+
+/* shared */
+.c-link{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.08em;color:var(--terra);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:border-color .2s;}
+.c-link:hover{border-color:var(--terra);}
 .fg{margin-bottom:12px;}
 .fg label{display:block;font-family:'DM Mono',monospace;font-size:.61rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
 .fg input,.fg textarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;}
@@ -421,6 +436,8 @@ body.modal-open{overflow:hidden;}
   nav{display:none;}
   .ap-grid{grid-template-columns:1fr;}
   .settings-grid{grid-template-columns:1fr;}
+  .contact-quick{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -666,21 +683,34 @@ body.modal-open{overflow:hidden;}
 <section id="contact">
   <div class="sec-label">Come pick it up</div>
   <h2>Get in Touch</h2>
-  <p class="sec-sub">Found something you like? Reach out — pickup only at Blaha Lujza tér, Budapest.</p>
-  <div class="contact-grid">
-    <div>
-     <div class="c-item"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#29a8e0"/><path d="M17.5 7L10 13.5 7 11l-2.5 1.5 5 4 9-9.5z" fill="#fff" opacity=".3"/><path d="M5.5 12.5l4.5 3.5 8-9" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div><div class="c-details"><h3>Telegram</h3><p>Fastest way to reach me. Send the book title and I'll reply quickly.</p><a id="tgLink" href="#" class="c-link" target="_blank">Open Telegram →</a></div></div>
-      <div class="c-item"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" fill="var(--warm2)" stroke="var(--border)" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></div><div class="c-details"><h3>Email</h3><p>Prefer email? Write me anytime.</p><a id="emailLink" href="#" class="c-link">Send Email →</a></div></div>
-        <div class="c-icon">📍</div>
-        <div class="c-details">
-          <h3>Pickup Only</h3>
-          <p><strong>Blaha Lujza tér, Budapest 1085</strong> — cash on pickup.</p>
-          <div class="map-wrap">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1347.8274246755452!2d19.068914620283707!3d47.49663684426092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc6767b07d9b%3A0x7be2e24544320049!2sBudapest%2C%20Blaha%20Lujza%20t%C3%A9r%2C%201085!5e0!3m2!1sen!2shu!4v1774790532997!5m2!1sen!2shu" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
+  <p class="sec-sub">Found a book you like? Reach out — cash pickup at Blaha Lujza tér, Budapest.</p>
+
+  <!-- TOP ROW: quick contact cards -->
+  <div class="contact-quick">
+    <a id="tgLink" href="#" target="_blank" class="cq-card cq-tg">
+      <div class="cq-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#29a8e0"/><path d="M5.5 12.5l4.5 3.5 8-9" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
       </div>
-    </div>
+      <div class="cq-text">
+        <strong>Telegram</strong>
+        <span>Fastest reply — usually within hours</span>
+      </div>
+      <div class="cq-arrow">→</div>
+    </a>
+    <a id="emailLink" href="#" class="cq-card cq-email">
+      <div class="cq-icon">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="var(--terra)" stroke-width="1.8"/><path d="M2 7l10 7 10-7" stroke="var(--terra)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+      </div>
+      <div class="cq-text">
+        <strong>Email</strong>
+        <span>Write anytime — I check daily</span>
+      </div>
+      <div class="cq-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- BOTTOM ROW: form + map side by side -->
+  <div class="contact-grid">
     <div class="c-form">
       <h3>Send an enquiry</h3>
       <p>Tell me which book you want and I'll confirm pickup details within 24 hours.</p>
@@ -689,6 +719,15 @@ body.modal-open{overflow:hidden;}
       <div class="fg"><label>Which book(s)?</label><input type="text" id="fbooks" placeholder="Book title(s)"/></div>
       <div class="fg"><label>Message (optional)</label><textarea id="fmsg" placeholder="Preferred time, questions, etc."></textarea></div>
       <button class="f-submit" onclick="sendEnquiry()">Send Enquiry →</button>
+    </div>
+    <div class="c-map-block">
+      <div class="c-map-label">
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="var(--terra)"/></svg>
+        <span><strong>Blaha Lujza tér, Budapest 1085</strong> — cash on pickup</span>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1347.8274246755452!2d19.068914620283707!3d47.49663684426092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc6767b07d9b%3A0x7be2e24544320049!2sBudapest%2C%20Blaha%20Lujza%20t%C3%A9r%2C%201085!5e0!3m2!1sen!2shu!4v1774790532997!5m2!1sen!2shu" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </div>
 </section>
