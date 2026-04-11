@@ -176,10 +176,21 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,2.5vw,2.2rem);ma
 .fb{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
 .fb:hover,.fb.active{background:var(--night-d);color:var(--white);border-color:var(--night-d);}
 .fb-sale.active{background:var(--terra);border-color:var(--terra);}
-.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;}
-.book-card{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:all .28s;display:flex;flex-direction:column;position:relative;}
+.books-scroll-wrap{position:relative;}
+.books-grid{display:flex;gap:18px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;padding:8px 4px 16px;cursor:grab;}
+.books-grid::-webkit-scrollbar{display:none;}
+.books-grid.dragging{cursor:grabbing;scroll-behavior:auto;}
+.book-card{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:all .28s;display:flex;flex-direction:column;position:relative;min-width:210px;width:210px;flex-shrink:0;}
 .book-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px var(--shadow);border-color:var(--warm2);}
-.book-photo{height:195px;overflow:hidden;background:var(--warm1);display:flex;align-items:center;justify-content:center;position:relative;}
+.books-nav{display:flex;gap:8px;margin-bottom:16px;justify-content:flex-end;}
+.books-nav-btn{width:38px;height:38px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);color:var(--night-d);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .22s;}
+.books-nav-btn:hover{background:var(--terra);border-color:var(--terra);color:#fff;}
+.books-nav-btn:hover svg{stroke:#fff;}
+.books-nav-btn svg{width:16px;height:16px;stroke:var(--night-d);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;fill:none;transition:stroke .2s;}
+.books-nav-btn:disabled{opacity:.3;cursor:default;}
+.books-nav-btn:disabled:hover{background:var(--white);border-color:var(--border);}
+.books-nav-btn:disabled:hover svg{stroke:var(--night-d);}
+.book-photo{height:230px;overflow:hidden;background:var(--warm1);display:flex;align-items:center;justify-content:center;position:relative;}
 .book-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
 .book-card:hover .book-photo img{transform:scale(1.05);}
 .no-photo-book{width:88px;height:128px;border-radius:2px 8px 8px 2px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.58rem;writing-mode:vertical-rl;color:rgba(255,255,255,.92);box-shadow:5px 5px 16px rgba(0,0,0,.24);padding:8px;text-align:center;}
@@ -190,14 +201,16 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,2.5vw,2.2rem);ma
 .book-info{padding:16px;flex:1;display:flex;flex-direction:column;}
 .book-genre{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:5px;}
 .book-title{font-family:'Playfair Display',serif;font-size:.93rem;line-height:1.3;margin-bottom:2px;color:var(--night-d);}
-.book-author{font-size:.78rem;color:var(--muted);font-style:italic;margin-bottom:7px;}
-.book-cond{font-size:.72rem;color:var(--silver);margin-bottom:11px;font-weight:300;}
+.book-author{font-size:.78rem;color:var(--muted);font-style:italic;margin-bottom:0;}
+.book-cond{display:none;}
 .detail-item{background:var(--warm1);border:1px solid var(--border);border-radius:6px;padding:8px 10px;}
 .detail-item .di-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
 .detail-item .di-val{font-size:.84rem;color:var(--night-d);font-weight:500;}
-.book-footer{display:flex;align-items:flex-end;justify-content:space-between;margin-top:auto;gap:5px;}
-.details-btn{font-family:'DM Mono',monospace;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;background:transparent;color:var(--terra);border:1.5px solid var(--terra);border-radius:4px;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.details-btn:hover{background:var(--terra);color:#fff;}
+.book-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:5px;}
+.details-btn{width:34px;height:34px;background:transparent;border:1.5px solid var(--terra);border-radius:4px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
+.details-btn:hover{background:var(--terra);}
+.details-btn:hover svg{stroke:#fff;}
+.details-btn svg{width:15px;height:15px;stroke:var(--terra);stroke-width:2;stroke-linecap:round;fill:none;transition:stroke .2s;}
 .orig-price{font-size:.67rem;color:var(--silver);text-decoration:line-through;font-family:'DM Mono',monospace;line-height:1;}
 .book-price{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--night-d);font-weight:700;line-height:1.1;}
 .book-price span{font-size:.63rem;font-weight:400;color:var(--muted);font-family:'DM Mono',monospace;}
@@ -286,11 +299,19 @@ footer p{font-size:.75rem;}
 .details-desc.expanded{max-height:600px;}
 .desc-toggle{background:none;border:none;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);cursor:pointer;padding:4px 0;margin-top:2px;display:block;}
 .desc-toggle:hover{text-decoration:underline;}
+.details-contact{display:flex;flex-direction:column;gap:8px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+.details-contact-btn{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:8px;text-decoration:none;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;transition:all .22s;}
+.details-contact-tg{background:var(--terra);color:#fff;}
+.details-contact-tg:hover{background:var(--terra-l);}
+.details-contact-email{background:var(--warm1);color:var(--night-d);border:1.5px solid var(--border);}
+.details-contact-email:hover{border-color:var(--terra);background:var(--warm2);}
 @media(max-width:600px){
   .details-modal{grid-template-columns:1fr;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
   .details-left{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;gap:16px;align-items:flex-start;padding:16px;}
   .details-photo-wrap{width:100px;flex-shrink:0;aspect-ratio:3/4;}
   .details-right{max-height:none;overflow-y:visible;}
+  .details-contact{flex-direction:row;}
+  .details-contact-btn{flex:1;justify-content:center;}
 }
 
 /* ── BUY MODAL ── */
@@ -568,11 +589,21 @@ body.modal-open{overflow:hidden;}
     <button class="fb" onclick="filterBooks('used',this)">Pre-loved</button>
     <button class="fb fb-sale" onclick="filterBooks('discount',this)">🏷️ On Sale</button>
   </div>
- <div class="books-grid" id="booksGrid">
-    <div class="loading-grid" id="loadingGrid">
-      <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loadingBar"></div></div>
-      <div class="loading-pct" id="loadingPct">0%</div>
-      <div class="loading-label">Finding your books…</div>
+<div class="books-scroll-wrap">
+    <div class="books-nav">
+      <button class="books-nav-btn" id="booksNavL" onclick="scrollBooks(-1)" title="Previous">
+        <svg viewBox="0 0 16 16"><polyline points="10,2 4,8 10,14"/></svg>
+      </button>
+      <button class="books-nav-btn" id="booksNavR" onclick="scrollBooks(1)" title="Next">
+        <svg viewBox="0 0 16 16"><polyline points="6,2 12,8 6,14"/></svg>
+      </button>
+    </div>
+    <div class="books-grid" id="booksGrid">
+      <div class="loading-grid" id="loadingGrid">
+        <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loadingBar"></div></div>
+        <div class="loading-pct" id="loadingPct">0%</div>
+        <div class="loading-label">Finding your books…</div>
+      </div>
     </div>
   </div>
 </section>
@@ -677,31 +708,29 @@ body.modal-open{overflow:hidden;}
 <div class="overlay" id="detailsOverlay" onclick="closeDetailsModal(event)">
   <div class="details-modal">
     <button class="modal-close" onclick="document.getElementById('detailsOverlay').classList.remove('open');document.body.classList.remove('modal-open')">✕</button>
-    <!-- LEFT: photo -->
+    <!-- LEFT: photo + price only -->
     <div class="details-left">
       <div id="detailsPhoto" class="details-photo-wrap"></div>
       <div id="detailsPrice" style="margin-top:14px;text-align:center;"></div>
-      <div class="m-opts" style="margin-top:12px;">
-        <a href="#" id="detailsTg" class="m-opt" target="_blank">
-          <span class="m-opt-icon">✈️</span>
-          <span class="m-opt-text"><strong>Telegram</strong><span>Reply within hours</span></span>
-        </a>
-        <a href="#" id="detailsEmail" class="m-opt">
-          <span class="m-opt-icon">✉️</span>
-          <span class="m-opt-text"><strong>Email</strong><span>Confirm within 24h</span></span>
-        </a>
-      </div>
     </div>
-    <!-- RIGHT: scrollable info -->
+    <!-- RIGHT: scrollable info + contact at bottom -->
     <div class="details-right">
       <div class="book-genre" id="detailsGenre"></div>
       <h3 id="detailsTitle"></h3>
       <p class="details-author" id="detailsAuthor"></p>
       <div id="detailsMeta" class="details-meta-grid"></div>
-      <!-- collapsible description -->
       <div class="details-desc-wrap">
         <p id="detailsDesc" class="details-desc collapsed"></p>
         <button id="descToggle" class="desc-toggle" onclick="toggleDesc()">Show more ▾</button>
+      </div>
+      <!-- contact buttons pinned at bottom -->
+      <div class="details-contact">
+        <a href="#" id="detailsTg" class="details-contact-btn details-contact-tg" target="_blank">
+          <span>✈️</span><span>Message on Telegram</span>
+        </a>
+        <a href="#" id="detailsEmail" class="details-contact-btn details-contact-email">
+          <span>✉️</span><span>Send an Email</span>
+        </a>
       </div>
     </div>
   </div>
@@ -1061,6 +1090,40 @@ function filterBooks(f,btn){
   renderBooks();
 }
 
+// ── BOOKS HORIZONTAL SCROLL ──
+(function(){
+  let isDown=false, startX, scrollLeft;
+  const grid = document.getElementById('booksGrid');
+  if(!grid) return;
+  grid.addEventListener('mousedown', e=>{
+    isDown=true; grid.classList.add('dragging');
+    startX=e.pageX-grid.offsetLeft; scrollLeft=grid.scrollLeft;
+  });
+  grid.addEventListener('mouseleave', ()=>{ isDown=false; grid.classList.remove('dragging'); });
+  grid.addEventListener('mouseup', ()=>{ isDown=false; grid.classList.remove('dragging'); });
+  grid.addEventListener('mousemove', e=>{
+    if(!isDown) return; e.preventDefault();
+    const x=e.pageX-grid.offsetLeft;
+    grid.scrollLeft=scrollLeft-(x-startX)*1.2;
+  });
+  grid.addEventListener('scroll', updateNavBtns);
+})();
+
+function scrollBooks(dir){
+  const grid=document.getElementById('booksGrid');
+  if(grid) grid.scrollBy({left: dir*440, behavior:'smooth'});
+  setTimeout(updateNavBtns, 350);
+}
+
+function updateNavBtns(){
+  const grid=document.getElementById('booksGrid');
+  const l=document.getElementById('booksNavL');
+  const r=document.getElementById('booksNavR');
+  if(!grid||!l||!r) return;
+  l.disabled = grid.scrollLeft < 10;
+  r.disabled = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 10;
+}
+
 let searchQuery = '';
 
 function onSearch(val){
@@ -1116,9 +1179,11 @@ function renderBooks(){
       :`<div class="book-price">${convertPrice(fin)} <span>${s}</span></div>`;
     const action=b.sold
       ?`<span class="sold-lbl">✓ Sold</span>`
-      :`<div style="display:flex;gap:5px;flex-wrap:wrap">
-          <button class="details-btn" onclick='openDetailsModal(${JSON.stringify(b).replace(/'/g,"&#39;")})'>Details</button>
-          <button class="buy-btn" onclick='openBuyModal(${JSON.stringify(b).replace(/'/g,"&#39;")})'>I want this</button>
+     :`<div style="display:flex;gap:5px;align-items:center">
+          <button class="buy-btn" onclick='openBuyModal(${JSON.stringify(b).replace(/'/g,"&#39;")})'>Get it</button>
+          <button class="details-btn" title="Details" onclick='openDetailsModal(${JSON.stringify(b).replace(/'/g,"&#39;")})'>
+            <svg viewBox="0 0 16 12"><line x1="1" y1="2" x2="15" y2="2"/><line x1="1" y1="6" x2="15" y2="6"/><line x1="1" y1="10" x2="15" y2="10"/></svg>
+          </button>
         </div>`;
     return `<div class="book-card" style="animation:fadeUp .5s ${i*.06}s both">
       <div class="book-photo">${photoHtml}<span class="badge ${b.condition==='new'?'badge-new':'badge-used'}">${b.condition==='new'?'New':'Pre-loved'}</span>${ribbon}</div>
@@ -1131,6 +1196,7 @@ function renderBooks(){
       </div>
     </div>`;
   }).join('');
+  setTimeout(updateNavBtns, 100);
 }
 
 function openBuyModal(b){
