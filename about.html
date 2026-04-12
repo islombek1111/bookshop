@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Islombek Isroilov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0d0d0d;
+      --white: #f5f4f0;
+      --grey-light: #e8e6e1;
+      --grey-mid: #b0aca4;
+      --grey-dark: #3a3835;
+      --sage: #7a9e7e;
+      --sage-dark: #5c7d60;
+      --sage-pale: #d6e5d8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-light);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--grey-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--black); }
+
+    .nav-links a.active {
+      border-bottom: 1.5px solid var(--sage);
+      padding-bottom: 1px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 3rem;
+      border-right: 1px solid var(--grey-light);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--grey-mid);
+    }
+
+    .hero-tagline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      font-style: italic;
+      color: var(--grey-mid);
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--grey-dark);
+      max-width: 420px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .hero-bio strong {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.6rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--sage);
+      color: var(--white);
+      border: 1.5px solid var(--sage);
+    }
+
+    .btn-primary:hover {
+      background: var(--sage-dark);
+      border-color: var(--sage-dark);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--grey-mid);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--black);
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: var(--black);
+      color: var(--grey-dark);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .photo-placeholder .icon {
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+
+    .photo-placeholder p {
+      opacity: 0.4;
+      max-width: 180px;
+      line-height: 1.5;
+    }
+
+    /* actual photo — just drop it inside .hero-right as <img class="hero-photo"> */
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .hero-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 3rem;
+      margin: 0;
+    }
+
+    .section-divider span {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+      white-space: nowrap;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--grey-light);
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--grey-light);
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .stat {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--grey-light);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    /* ── NOW SECTION ── */
+    .now-section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .now-label {
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--grey-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+
+    .now-label h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .now-label p {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    .now-items {
+      padding: 4rem 4rem 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .now-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--grey-light);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .now-item:last-child { border-bottom: none; }
+    .now-item.visible { opacity: 1; transform: none; }
+
+    .now-item-icon {
+      font-size: 1.3rem;
+      margin-top: 0.15rem;
+    }
+
+    .now-item-text h3 {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .now-item-text p {
+      font-size: 0.9rem;
+      color: var(--grey-mid);
+      font-weight: 300;
+    }
+
+    /* ── INTERESTS ── */
+    .interests-section {
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .interests-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+    }
+
+    .interests-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .interests-header p {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--grey-light);
+      border-radius: 2px;
+      color: var(--grey-dark);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--sage);
+      color: var(--sage-dark);
+    }
+
+    .tag.highlight {
+      background: var(--sage-pale);
+      border-color: var(--sage-pale);
+      color: var(--sage-dark);
+    }
+
+    /* ── CONNECT ── */
+    .connect-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .connect-left {
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--grey-light);
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .connect-left h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .connect-left h2 em {
+      font-style: italic;
+      color: var(--grey-mid);
+    }
+
+    .connect-left p {
+      font-size: 0.92rem;
+      color: var(--grey-mid);
+      font-weight: 300;
+      max-width: 340px;
+    }
+
+    .connect-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .connect-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .connect-link:hover { color: var(--sage); }
+
+    .connect-link span { color: rgba(255,255,255,0.3); font-size: 0.75rem; letter-spacing: 0.1em; }
+    .connect-link .arrow { font-size: 1rem; }
+
+    .connect-right {
+      padding: 5rem 4rem 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .connect-right h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .connect-right p {
+      font-size: 0.92rem;
+      color: var(--grey-dark);
+      font-weight: 300;
+      max-width: 340px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem 3rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    footer a {
+      color: var(--grey-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--black); }
+
+    /* ── SCROLL ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 4rem 1.5rem 3rem; border-right: none; border-bottom: 1px solid var(--grey-light); }
+      .hero-right { min-height: 280px; }
+
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 2rem 1.5rem; }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid var(--grey-light); }
+      .stat:nth-child(4) { border-right: none; }
+
+      .now-section { grid-template-columns: 1fr; }
+      .now-label { padding: 3rem 1.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--grey-light); }
+      .now-items { padding: 2rem 1.5rem; }
+
+      .interests-section { padding: 3.5rem 1.5rem; }
+      .interests-header { flex-direction: column; gap: 0.5rem; }
+
+      .connect-section { grid-template-columns: 1fr; }
+      .connect-left { padding: 3.5rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .connect-right { padding: 3rem 1.5rem; }
+
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .section-divider { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Islombek Isroilov</a>
+    <ul class="nav-links">
+      <li><a href="/about.html" class="active">About</a></li>
+      <li><a href="/notes.html">Notes</a></li>
+      <li><a href="/achievements.html">Achievements</a></li>
+      <li><a href="/">Books</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">About me</p>
+      <h1 class="hero-name">Islombek<br><em>Isroilov.</em></h1>
+      <p class="hero-tagline">Curious about everything. Surviving on purpose.</p>
+      <p class="hero-bio">
+        I read. I learn. I move. No fixed path — <strong>just forward </strong>. 
+        Budapest is home for now [subject to change <em>anytime</em>].
+      </p>
+      <div class="btn-group">
+        <a href="#now" class="btn btn-primary">What I'm doing now</a>
+        <a href="#connect" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="me.jpg" alt="Islombek Isroilov" class="hero-photo" />
+      <span class="hero-caption">2000</span>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip fade-in">
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Books read</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Notes written</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Certs earned</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0+</div>
+      <div class="stat-label">Your own stat</div>
+    </div>
+  </div>
+
+  <!-- NOW SECTION -->
+  <section class="now-section" id="now">
+    <div class="now-label">
+      <h2>What I'm doing<br>now</h2>
+      <p>April 2026</p>
+    </div>
+    <div class="now-items">
+      <div class="now-item">
+        <div class="now-item-icon">📖</div>
+        <div class="now-item-text">
+          <h3>Reading</h3>
+          <p>The book you're currently reading — and what you think of it so far.</p>
+        </div>
+      </div>
+      <div class="now-item">
+        <div class="now-item-icon">🎓</div>
+        <div class="now-item-text">
+          <h3>Learning</h3>
+          <p>A skill, course, or subject you're actively working on.</p>
+        </div>
+      </div>
+      <div class="now-item">
+        <div class="now-item-icon">🛠</div>
+        <div class="now-item-text">
+          <h3>Building</h3>
+          <p>A project you're working on — this website, a side project, anything.</p>
+        </div>
+      </div>
+      <div class="now-item">
+        <div class="now-item-icon">📍</div>
+        <div class="now-item-text">
+          <h3>Based in</h3>
+          <p>Budapest, Hungary — where you buy and sell books at Blaha Lujza tér.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="interests-section fade-in">
+    <div class="interests-header">
+      <h2>Things I care about</h2>
+      <p>In no particular order</p>
+    </div>
+    <div class="tag-cloud">
+      <span class="tag highlight">Books</span>
+      <span class="tag">Your interest</span>
+      <span class="tag">Another interest</span>
+      <span class="tag highlight">Learning</span>
+      <span class="tag">Something you enjoy</span>
+      <span class="tag">A hobby</span>
+      <span class="tag highlight">Writing</span>
+      <span class="tag">A topic you follow</span>
+      <span class="tag">Something personal</span>
+      <span class="tag">A goal you have</span>
+      <span class="tag highlight">Budapest</span>
+      <span class="tag">Your field</span>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section class="connect-section" id="connect">
+    <div class="connect-left">
+      <div>
+        <h2>Let's<br><em>connect.</em></h2>
+        <p>Whether you want to talk books, ideas, or just say hello — I'm easy to reach.</p>
+      </div>
+      <div class="connect-links">
+        <a href="https://t.me/yourusername" class="connect-link">
+          <span>Telegram</span>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="mailto:you@isroilov.com" class="connect-link">
+          <span>Email</span>
+          <span class="arrow">↗</span>
+        </a>
+        <!-- Add more links here -->
+      </div>
+    </div>
+    <div class="connect-right">
+      <h3>Also explore</h3>
+      <p>There's more to see — notes I've written, things I've learned, and books you can take home.</p>
+      <div class="btn-group">
+        <a href="/notes.html" class="btn btn-primary">Read my notes</a>
+        <a href="/achievements.html" class="btn btn-ghost">Achievements</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Islombek Isroilov</span>
+    <span>Budapest, Hungary</span>
+    <a href="/">← Back to p👀rCopy</a>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Stagger now-items
+          if (entry.target.classList.contains('now-item')) return;
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Stagger now-items
+    const nowObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 100 * [...document.querySelectorAll('.now-item')].indexOf(entry.target));
+          nowObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.now-item').forEach(el => nowObserver.observe(el));
+  </script>
+</body>
+</html>
